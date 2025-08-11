@@ -1,0 +1,48 @@
+diff --git a/librepo/CMakeLists.txt b/librepo/CMakeLists.txt
+index 3a1ef84..3ffb3cb 100644
+--- a/librepo/CMakeLists.txt
++++ b/librepo/CMakeLists.txt
+@@ -62,7 +62,7 @@ LIST(APPEND librepo_internal_HEADERS
+     xmlparser_internal.h
+     yum_internal.h)
+ 
+-ADD_LIBRARY(librepo SHARED ${librepo_SRCS} ${librepo_HEADERS} ${librepo_internal_HEADERS})
++ADD_LIBRARY(librepo STATIC ${librepo_SRCS} ${librepo_HEADERS} ${librepo_internal_HEADERS})
+ TARGET_LINK_LIBRARIES(librepo
+                         ${LIBXML2_LIBRARIES}
+                         ${CURL_LIBRARY}
+diff --git a/librepo/checksum.c b/librepo/checksum.c
+index 199e40e..d5f11da 100644
+--- a/librepo/checksum.c
++++ b/librepo/checksum.c
+@@ -223,7 +223,7 @@ lr_checksum_fd_compare(LrChecksumType type,
+         if (fstat(fd, &st) == 0) {
+             timestamp = st.st_mtime;
+             timestamp *= 1000000000; //convert sec timestamp to nanosec timestamp
+-            timestamp += st.st_mtim.tv_nsec;
++            //timestamp += st.st_mtim.tv_nsec;
+         }
+     }
+ 
+diff --git a/tests/test_checksum.c b/tests/test_checksum.c
+index f44a8ed..9b42802 100644
+--- a/tests/test_checksum.c
++++ b/tests/test_checksum.c
+@@ -133,7 +133,7 @@ START_TEST(test_cached_checksum_matches)
+ 
+     // Assert cached checksum exists
+     attr_ret = GETXATTR(filename, checksum_key, &buf, sizeof(buf)-1);
+-
++    printf("GETXATTR attr_ret %d %s\n", attr_ret, strerror(errno));
+     if (attr_ret == -1) {
+         // Error encountered
+         if (errno == ENOTSUP) {
+@@ -152,7 +152,7 @@ START_TEST(test_cached_checksum_matches)
+     ck_assert_int_eq(ret, 0);
+     long long timestamp = st.st_mtime;
+     timestamp *= 1000000000; //convert sec timestamp to nanosec timestamp
+-    timestamp += st.st_mtim.tv_nsec;
++    //timestamp += st.st_mtim.tv_nsec;
+     mtime_str = g_strdup_printf("%lli", timestamp);
+     attr_ret = GETXATTR(filename, XATTR_CHKSUM_MTIME, &buf, sizeof(buf)-1);
+     ck_assert(attr_ret != -1);
