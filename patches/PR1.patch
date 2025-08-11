@@ -25,19 +25,18 @@ index 199e40e..d5f11da 100644
      }
  
 diff --git a/tests/test_checksum.c b/tests/test_checksum.c
-index f44a8ed..9b42802 100644
+index f44a8ed..13f15a1 100644
 --- a/tests/test_checksum.c
 +++ b/tests/test_checksum.c
-@@ -133,7 +133,7 @@ START_TEST(test_cached_checksum_matches)
+@@ -133,7 +133,6 @@ START_TEST(test_cached_checksum_matches)
  
      // Assert cached checksum exists
      attr_ret = GETXATTR(filename, checksum_key, &buf, sizeof(buf)-1);
 -
-+    printf("GETXATTR attr_ret %d %s\n", attr_ret, strerror(errno));
      if (attr_ret == -1) {
          // Error encountered
          if (errno == ENOTSUP) {
-@@ -152,7 +152,7 @@ START_TEST(test_cached_checksum_matches)
+@@ -152,7 +151,7 @@ START_TEST(test_cached_checksum_matches)
      ck_assert_int_eq(ret, 0);
      long long timestamp = st.st_mtime;
      timestamp *= 1000000000; //convert sec timestamp to nanosec timestamp
