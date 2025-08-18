@@ -16,7 +16,7 @@ export ZOPEN_BUILD_LINE="STABLE"
 
 ## Required IF ZOPEN_BUILD_LINE='STABLE'
 export ZOPEN_STABLE_URL="https://github.com/rpm-software-management/librepo.git"  # Specify the stable build URL (either git or tarball)
-export ZOPEN_STABLE_DEPS="cmake make zoslib openssl check_python libgpgme pkgconfig libxml2 glib check doxygen gettext libpcre2 zlib libassuan gpg libgpgerror libiconv" # Specify the stable build dependencies.
+export ZOPEN_STABLE_DEPS="cmake make zoslib openssl check_python libgpgme pkgconfig libxml2 glib check doxygen gettext libpcre2 zlib libassuan gpg libgpgerror libiconv grep gawk" # Specify the stable build dependencies.
 
 ## Required IF ZOPEN_BUILD_LINE='DEV'
 export ZOPEN_DEV_URL=""   # Specify the dev build URL
@@ -56,9 +56,11 @@ zopen_check_results()
   pfx="$2"
   chk="$1/$2_check.log"
 
-  # Echo the following information to gauge build health
-  echo "actualFailures:0"
-  echo "totalTests:1"
+  actualFailures=$(grep -E '^[[:space:]]*[0-9]+/[0-9]+[[:space:]]+Test[[:space:]]+#' $chk | awk '$(NF-2) ~ /\*\*\*Failed/ { count++ } END { print count+0 }')
+  actualPasses=$(grep -E '^[[:space:]]*[0-9]+/[0-9]+[[:space:]]+Test[[:space:]]+#' $chk | awk '$(NF-2) == "Passed" { count++ } END { print count+0 }')
+  totalTests=$(grep -E '^[[:space:]]*[0-9]+/[0-9]+[[:space:]]+Test[[:space:]]+#' $chk | wc -l)
+  echo "actualFailures:$actualFailures"
+  echo "totalTests:$totalTests"
   echo "expectedFailures:0"
   echo "expectedTotalTests:1"
 }
@@ -67,7 +69,7 @@ zopen_get_version()
 {
   # Modify to echo the version of your tool/library
   # Rather than hardcoding the version, obtain the version by running the tool/library
-  echo "1.0.0"
+  echo $LIBREPO_VERSION
 }
 
 
