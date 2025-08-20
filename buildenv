@@ -16,7 +16,7 @@ export ZOPEN_BUILD_LINE="STABLE"
 
 ## Required IF ZOPEN_BUILD_LINE='STABLE'
 export ZOPEN_STABLE_URL="https://github.com/rpm-software-management/librepo.git"  # Specify the stable build URL (either git or tarball)
-export ZOPEN_STABLE_DEPS="cmake make zoslib openssl check_python libgpgme pkgconfig libxml2 glib check doxygen gettext libpcre2 zlib libassuan gpg libgpgerror libiconv grep gawk" # Specify the stable build dependencies.
+export ZOPEN_STABLE_DEPS="cmake make zoslib openssl check_python libgpgme pkgconfig libxml2 glib check doxygen gettext libpcre2 zlib libassuan gpg libgpgerror libiconv grep gawk bash" # Specify the stable build dependencies.
 
 ## Required IF ZOPEN_BUILD_LINE='DEV'
 export ZOPEN_DEV_URL=""   # Specify the dev build URL
