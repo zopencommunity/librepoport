@@ -24,6 +24,16 @@ index 199e40e..d5f11da 100644
          }
      }
  
+diff --git a/tests/run_tests.sh.in b/tests/run_tests.sh.in
+index 29a9eeb..42875ca 100755
+--- a/tests/run_tests.sh.in
++++ b/tests/run_tests.sh.in
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/env bash
+ 
+ # Next line is a hack
+ # Builds for epel6 doesn't have rpath setted and
 diff --git a/tests/test_checksum.c b/tests/test_checksum.c
 index f44a8ed..2e60ae2 100644
 --- a/tests/test_checksum.c
