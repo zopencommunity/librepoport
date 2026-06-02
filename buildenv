@@ -16,7 +16,7 @@ export ZOPEN_BUILD_LINE="STABLE"
 
 ## Required IF ZOPEN_BUILD_LINE='STABLE'
 export ZOPEN_STABLE_URL="https://github.com/rpm-software-management/librepo.git"  # Specify the stable build URL (either git or tarball)
-export ZOPEN_STABLE_DEPS="cmake make curl openssl check_python libgpgme pkgconfig libxml2 glib check doxygen gettext libpcre2 zlib libassuan gpg libgpgerror libiconv grep gawk bash" # Specify the stable build dependencies.
+export ZOPEN_STABLE_DEPS="cmake make curl openssl3 check_python libgpgme pkgconfig libxml2 glib check doxygen gettext libpcre2 zlib libassuan gpg libgpgerror libiconv grep gawk bash" # Specify the stable build dependencies.
 
 ## Required IF ZOPEN_BUILD_LINE='DEV'
 export ZOPEN_DEV_URL=""   # Specify the dev build URL
@@ -27,7 +27,7 @@ export ZOPEN_DEV_DEPS=""  # Specify the dev build dependencies
 export ZOPEN_CATEGORIES="library"
 
 ## Runtime zopen tool dependencies to be installed alongside the tool.
-export ZOPEN_RUNTIME_DEPS="curl glib openssl libxml2 libgpgme libgpgerror"
+export ZOPEN_RUNTIME_DEPS="curl glib openssl3 libxml2 libgpgme libgpgerror"
 
 ## Runtime system prerequisites; supply the name of the system pre-requisties.
 ## Current available prerequisites: zos24 zos25 zos31 procfs (see https://github.com/zopencommunity/meta/blob/main/include/prereq.sh for a current list)
