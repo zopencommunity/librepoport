@@ -1,6 +1,6 @@
 # Update bump details accordingly. Use bump check to confirm.
 # bump: librepo-version /LIBREPO_VERSION="(.*)"/ https://github.com/rpm-software-management/librepo.git|semver:*
-LIBREPO_VERSION="1.20.0" # Specify a stable release
+LIBREPO_VERSION="1.21.0" # Specify a stable release
 export ZOPEN_STABLE_TAG="${LIBREPO_VERSION}"
 
 ###
