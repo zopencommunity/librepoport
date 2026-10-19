@@ -1,5 +1,5 @@
 diff --git a/librepo/CMakeLists.txt b/librepo/CMakeLists.txt
-index 3a1ef84..3ffb3cb 100644
+index a7ecbb9..eb6b908 100644
 --- a/librepo/CMakeLists.txt
 +++ b/librepo/CMakeLists.txt
 @@ -62,7 +62,7 @@ LIST(APPEND librepo_internal_HEADERS
@@ -12,10 +12,10 @@ index 3a1ef84..3ffb3cb 100644
                          ${LIBXML2_LIBRARIES}
                          ${CURL_LIBRARY}
 diff --git a/librepo/checksum.c b/librepo/checksum.c
-index 199e40e..d5f11da 100644
+index 489bc6a..2cda753 100644
 --- a/librepo/checksum.c
 +++ b/librepo/checksum.c
-@@ -223,7 +223,7 @@ lr_checksum_fd_compare(LrChecksumType type,
+@@ -226,7 +226,7 @@ lr_checksum_fd_compare(LrChecksumType type,
          if (fstat(fd, &st) == 0) {
              timestamp = st.st_mtime;
              timestamp *= 1000000000; //convert sec timestamp to nanosec timestamp
@@ -64,3 +64,17 @@ index f44a8ed..2e60ae2 100644
      tcase_add_test(tc, test_cached_checksum_value);
      tcase_add_test(tc, test_cached_checksum_clear);
      suite_add_tcase(s, tc);
+diff --git a/tests/test_gpg.c b/tests/test_gpg.c
+index 0390e73..42336ec 100644
+--- a/tests/test_gpg.c
++++ b/tests/test_gpg.c
+@@ -411,6 +411,9 @@ gpg_suite(void)
+ {
+     Suite *s = suite_create("gpg");
+     TCase *tc = tcase_create("Main");
++    // Each call spawns a gpg-agent, which can exceed Check's 4s default on slow systems
++    tcase_set_timeout(tc, 60);
++
+     tcase_add_test(tc, test_gpg_check_signature);
+     tcase_add_test(tc, test_gpg_check_armored_key_import_test_export);
+     tcase_add_test(tc, test_gpg_check_binary_key_import_test_export);
